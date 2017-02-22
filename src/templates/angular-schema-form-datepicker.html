@@ -1,21 +1,38 @@
-<div>
-<!-- Surrounding DIV for sfField builder to add a sfField directive to. -->
-
-  <!--<h2>{{form.myOwnFormOption}}</h2>-->
-  <!--&lt;!&ndash; Create your own form options &ndash;&gt;-->
-
-  <!--<label>{{form.title}}</label>-->
-  <!-- -->
-  <!--<update-on-blur sf-field-model schema-validate="form"></update-on-blur>-->
-  <!--<em>Blur this field to update the model.</em>-->
-  <!-- -->
-  <!--&lt;!&ndash; sf-field-model let's the ngModel builder know that you want a ng-model that matches against the form key here &ndash;&gt;-->
-  <!--&lt;!&ndash; schema-validate="form" validates the form against the schema &ndash;&gt;-->
-
-  <!--<span sf-message="form.description"></span>-->
-  <!--&lt;!&ndash; Description & Validation messages &ndash;&gt;-->
-  <datepicker>
-    <input ng-model="date" type="text"/>
-  </datepicker>
-
+<div class="form-group {{form.htmlClass}}" ng-class="{'has-error': hasError()}">
+  <label class="control-label {{form.labelHtmlClass}}" ng-show="showTitle()">{{form.title}}</label>
+  <div ng-class="{'input-group': (form.fieldAddonLeft || form.fieldAddonRight)}">
+    <span ng-if="form.fieldAddonLeft"
+          class="input-group-addon"
+          ng-bind-html="form.fieldAddonLeft"></span>
+    <datepicker
+            date-format="{{form.dateFormat}}"
+            date-min-limit="{{form.dateMinLimit}}"
+            date-max-limit="{{form.dateMaxLimit}}"
+            date-set-hidden="{{form.dateSetHidden}}"
+            date-disabled-dates="{{form.dateDisabledDate}}"
+            date-refocus="{{form.dateRefocus}}"
+            date-typer="{{form.dateTyper}}"
+            date-week-start-day="{{form.dateWeekStartDay}}"
+            datepicker-class="{{form.datepickerClass}}"
+            datepicker-append-to="{{form.datepickerAppendTo}}"
+            datepicker-toggle="{{form.datepickerAppendTo}}"
+            datepicker-show="{{form.datepickerShow}}"
+            datepicker-mobile="{{form.datepickerMobile}}"
+            >
+      <input
+              ng-show="form.key"
+              type="text"
+              class="form-control {{form.fieldHtmlClass}}"
+              schema-validate="form"
+              ng-disabled="form.readonly"
+              sf-field-model
+              ng-model="$$value$$"
+              type="text"
+              />
+    </datepicker>
+    <span ng-if="form.fieldAddonRight"
+          class="input-group-addon"
+          ng-bind-html="form.fieldAddonRight"></span>
+  </div>
+  <span class="help-block">{{ (hasError() && errorMessage(schemaError())) || form.description}}</span>
 </div>
